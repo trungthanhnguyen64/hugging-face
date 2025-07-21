@@ -1,16 +1,13 @@
 # hugging-face
 
 ---
-title: Text Summarizer App
-emoji: 📚
-colorFrom: blue
-colorTo: green
+title: Demo
+emoji: 🌗
+colorFrom: purple
+colorTo: purple
 sdk: gradio
-sdk_version: "4.29.0"
+sdk_version: "3.0.6"
 app_file: app.py
 pinned: false
+license: cc
 ---
-
-# Ứng dụng tóm tắt văn bản
-
-Ứng dụng sử dụng Hugging Face Transformers + Gradio để tóm tắt văn bản.
