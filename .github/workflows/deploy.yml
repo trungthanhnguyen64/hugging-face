@@ -20,13 +20,13 @@ jobs:
       # Bước 2: Thêm remote Hugging Face Space
       - name: Add remote
         env:
-          HF: ${{ secrets.HG }}
+          HF: ${{ secrets.HF }}
         run: |
-          git remote add space https://trung06042002:$HG@huggingface.co/spaces/trung06042002/demo
+          git remote add space https://trung06042002:$HF@huggingface.co/spaces/trung06042002/demo
 
       # Bước 3: Push code lên Hugging Face Space
       - name: Push to hub
         env:
-          HF: ${{ secrets.HG }}
+          HF: ${{ secrets.HF }}
         run: |
-          git push --force https://trung06042002:$HG@huggingface.co/spaces/trung06042002/demo main
+          git push --force https://trung06042002:$HF@huggingface.co/spaces/trung06042002/demo main
