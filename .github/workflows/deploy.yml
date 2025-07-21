@@ -21,7 +21,7 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git clone https://huggingface.co/spaces/trung06042002/demo
+          git clone https://huggingface.co/spaces/trung06042002/demo hf-space
           cp -r * hf-space/
           cd hf-space
           git add .
