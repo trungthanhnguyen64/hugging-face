@@ -23,7 +23,7 @@ jobs:
         run: |
           git clone https://huggingface.co/spaces/trung06042002/demo
           cp -r * demo/
-          cd your-space-name
+          cd demo
           git add .
           git commit -m "auto deploy from GitHub"
           git push
