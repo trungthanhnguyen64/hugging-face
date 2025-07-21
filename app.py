@@ -1,23 +1,25 @@
-# app.py
-import gradio as gr
 from transformers import pipeline
+import gradio as gr
 
-# Tải mô hình tóm tắt văn bản từ Hugging Face
-summarizer = pipeline("summarization")
+# Tạo mô hình tóm tắt
+model = pipeline("summarization")
 
-def summarize_text(text):
-    result = summarizer(text, max_length=130, min_length=30, do_sample=False)
-    return result[0]["summary_text"]
+# Hàm xử lý đầu vào
+def predict(prompt):
+    summary = model(prompt)[0]["summary_text"]
+    return summary
 
-# Tạo giao diện Gradio
-iface = gr.Interface(
-    fn=summarize_text,
-    inputs=gr.Textbox(lines=10, placeholder="Nhập văn bản cần tóm tắt..."),
-    outputs="text",
-    title="Ứng dụng Tóm tắt Văn bản",
-    description="Ứng dụng dùng mô hình Hugging Face để tóm tắt văn bản dài."
-)
+# Tạo giao diện bằng Gradio
+with gr.Blocks() as demo:
+    textbox = gr.Textbox(
+        placeholder="Enter text block to summarize",
+        lines=4,
+        label="Input Text"
+    )
+    output = gr.Textbox(label="Summary")
+
+    textbox.submit(fn=predict, inputs=textbox, outputs=output)
+    gr.Button("Summarize").click(fn=predict, inputs=textbox, outputs=output)
 
 # Chạy ứng dụng
-if __name__ == "__main__":
-    iface.launch()
+demo.launch()
