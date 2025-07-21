@@ -12,21 +12,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Git config
-        run: |
-          git config --global user.email "your-email@example.com"
-          git config --global user.name "Your Name"
-
       - name: Push to Hugging Face Spaces
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HG}}
         run: |
-          git clone https://huggingface.co/spaces/trung06042002/demo hf-space
-
-          # Copy toàn bộ trừ .git và chính hf-space
+          git clone https://$HF_TOKEN@huggingface.co/spaces/trung06042002/demo hf-space
           rsync -av --exclude='.git' --exclude='hf-space' ./ hf-space/
-
           cd hf-space
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
           git add .
           git commit -m "auto deploy from GitHub" || echo "No changes to commit"
-          git push
+          git push https://$HF_TOKEN@huggingface.co/spaces/trung06042002/demo
