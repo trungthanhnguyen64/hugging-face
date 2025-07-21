@@ -22,7 +22,7 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git clone https://huggingface.co/spaces/trung06042002/demo
-          cp -r * your-space-name/
+          cp -r * demo/
           cd your-space-name
           git add .
           git commit -m "auto deploy from GitHub"
