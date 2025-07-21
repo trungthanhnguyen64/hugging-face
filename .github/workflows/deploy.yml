@@ -16,11 +16,11 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HG}}
         run: |
-          git clone https://$HF_TOKEN@huggingface.co/spaces/trung06042002/demo hf-space
+          git clone https://$HG@huggingface.co/spaces/trung06042002/demo hf-space
           rsync -av --exclude='.git' --exclude='hf-space' ./ hf-space/
           cd hf-space
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
           git commit -m "auto deploy from GitHub" || echo "No changes to commit"
-          git push https://$HF_TOKEN@huggingface.co/spaces/trung06042002/demo
+          git push https://$HG@huggingface.co/spaces/trung06042002/demo
