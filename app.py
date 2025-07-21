@@ -1,4 +1,5 @@
 from transformers import pipeline
+import torch
 import gradio as gr
 
 
