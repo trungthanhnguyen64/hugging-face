@@ -1,26 +1,32 @@
-name: Deploy to Hugging Face Spaces
+name: Sync to Hugging Face hub
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
+  # Cho phép chạy workflow này thủ công từ tab Actions
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  sync-to-hub:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Push to Hugging Face Spaces
+    steps:
+      # Bước 1: Checkout source code từ GitHub repo
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Bước 2: Thêm remote Hugging Face Space
+      - name: Add remote
         env:
-          HF_TOKEN: ${{ secrets.HG}}
+          HF: ${{ secrets.HG }}
         run: |
-          git clone https://$HG@huggingface.co/spaces/trung06042002/demo hf-space
-          rsync -av --exclude='.git' --exclude='hf-space' ./ hf-space/
-          cd hf-space
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "auto deploy from GitHub" || echo "No changes to commit"
-          git push https://$HG@huggingface.co/spaces/trung06042002/demo
+          git remote add space https://trung06042002:$HG@huggingface.co/spaces/trung06042002/demo
+
+      # Bước 3: Push code lên Hugging Face Space
+      - name: Push to hub
+        env:
+          HF: ${{ secrets.HG }}
+        run: |
+          git push --force https://trung06042002:$HG@huggingface.co/spaces/trung06042002/demo main
