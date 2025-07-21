@@ -22,8 +22,11 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git clone https://huggingface.co/spaces/trung06042002/demo hf-space
-          cp -r * hf-space/
+
+          # Copy toàn bộ trừ .git và chính hf-space
+          rsync -av --exclude='.git' --exclude='hf-space' ./ hf-space/
+
           cd hf-space
           git add .
-          git commit -m "auto deploy from GitHub"
+          git commit -m "auto deploy from GitHub" || echo "No changes to commit"
           git push
